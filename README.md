@@ -17,3 +17,7 @@ kubectl port-forward svc/argocd-server -n argocd 8090:443
 
 ## To get password
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode && echo
+
+# FAQ
+Sometimes argo is not able to pull data from git, reason usually is that argocd repo-server is not working, you can verify that by looking at pods of argocd namespace. If yes, then restart the repo-server
+- kubectl rollout restart deploy/argocd-repo-server -n argocd
